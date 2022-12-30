@@ -10,6 +10,7 @@ $(document).ready(function() {
       gameObj = JSON.parse(localStorage.getItem("gameSave"))
       console.log("=== LOADED SAVE ===")
    } else{
+      console.log("=== UNABLE TO LOAD SAVE OR FIRST TIME PLAYER ===")
       gameObj.allowAmbientText = true;
       gameObj.plevel = 0;
       gameObj.phealth = 100;
