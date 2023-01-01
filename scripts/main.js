@@ -14,7 +14,9 @@ $(document).ready(function() {
       gameObj.allowAmbientText = true;
       gameObj.plevel = 0;
       gameObj.phealth = 100;
+      gameObj.pmaxhealth = 100;
       gameObj.pmana = 25;
+      gameObj.pmaxmana = 25;
       gameObj.pexp = 0;
       gameObj.prequiredxp = 100;
       localStorage.setItem("gameSave",JSON.stringify(gameObj));
@@ -24,16 +26,18 @@ $(document).ready(function() {
    typeText(`<br>Did you know that, `,textspeed,".gametxt", "yellow");
    typeText(`<br>I enjoy typing.`,textspeed,".gametxt","white");
 
-   createUActionBtn(4,null,"ATTACK");
+   createUActionBtn(1,null,"START");
 
    setInterval(() => {
       idleTime += 1;
       if(idleTime > 25 && gameObj.allowAmbientText == true){ // add extra checks for individual text pieces
          idleTime = 0;
          $(".specialtxtspan").remove(); // for now, remove if longer story
-         typeText(`<br>Pizza with pineapple is pretty good ..`,30,".gametxt","red",true);
+         typeText(`<br>Are you still playing? ..`,30,".gametxt","red",true);
       }
    }, 1000);
+
+   updatePlayerHP();
 });
 
 function clearUABtn(){
@@ -55,6 +59,7 @@ function createUActionBtn(amt,_class,txt){ //create buttons
       $(uinput).append(btn);
    };
 }
+
 //start of typetext function
 var ableToType = { //keeps track of individual components and whether or not we are done typing in them
    ".gametxt": true,
@@ -163,4 +168,39 @@ function typeText(text,speed, target,color,special,) {
       }
    }
 };
+
+function updatePlayerHP() {
+   let playerhp = document.getElementById("php");
+   let playermaxhp = document.getElementById("pmaxhp");
+   let hp = gameObj.phealth// Get the current value of the hp variable
+   let percent = (hp / gameObj.pmaxhealth) * 100; // Calculate the percentage of hp remaining
+   let pmaxhp = 100-percent;
+   let pmaxhpleft = 100-pmaxhp;
+
+   if(percent >= 100){
+      percent = 100;
+      playerhp.style.width = `${percent}%`;
+      playermaxhp.style.display="none";
+      playerhp.style.borderTopRightRadius = "5px";
+      playerhp.style.borderBottomRightRadius = "5px";
+   } else{
+      playerhp.style.width = `${percent}%`;
+      playermaxhp.style.display="block";
+      playerhp.style.borderTopRightRadius = "0px";
+      playerhp.style.borderBottomRightRadius = "0px";
+   }
+   
+   if(100-pmaxhp <= 0){
+      pmaxhpleft = 0;
+      pmaxhp = 100;
+      playermaxhp.style.width = `${pmaxhp}%`;
+      playermaxhp.style.borderTopLeftRadius = "5px";
+      playermaxhp.style.borderBottomLeftRadius = "5px";
+   } else{
+      playermaxhp.style.width = `${pmaxhp}%`;
+      playermaxhp.style.borderTopLeftRadius = "0px";
+      playermaxhp.style.borderBottomLeftRadius = "0px";
+   }
+   playermaxhp.style.left = `${pmaxhpleft}%`;
+ }
  

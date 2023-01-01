@@ -3,6 +3,10 @@
  height:100vh;
  margin: 0;
 }
+.txt{
+    font-family: 'heebo', 'sans-serrif';
+    font-style:normal;
+}
 #textwindowwrap{
     position:relative;
     float:left;
@@ -15,6 +19,7 @@
     position: relative;
     width:100%;
     height:50%;
+    max-height:50%;
 
     background-color: rgba(0,0,0,1);
 }
@@ -38,13 +43,13 @@
     position:relative;
     width:100%;
     height:15%;
-
-
+    max-height:15%;
 }
 .useractionchoice{
     position:relative;
     width:100%;
     height:35%;
+    max-height:35%;
 
     background-color: rgba(0,0,0,.75);
 }
@@ -54,6 +59,90 @@
     margin: auto;
 
     margin:5px;
+}
+
+.phpwrap{
+    position:relative;
+    display:flex;
+    align-items: center;
+    height:50%;
+    width:30%;
+    margin:0;
+    
+
+    background-color: rgba(0,0,0,.5);
+    border-bottom-right-radius: 5px;
+
+    overflow:auto;
+}
+#phpwrap1{
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    width:50%;
+    max-width:50%;
+    height:100%;
+
+    overflow:auto;
+
+}
+#phpwrap2{
+    position:relative;
+    display:flex;
+    float:right;
+    width:50%;
+    max-width:50%;
+    height:100%;
+
+}
+#phptxt{
+    position:relative;
+    display: block;
+    width:100%;
+    height: 100%;
+
+    color:white;
+    font-size:100%;
+    word-wrap: break-word;
+
+    margin:0;
+    padding:0;
+
+}
+#phpbar{
+    position:relative;
+    height:50%;
+    width:100%;
+    top:25%;
+
+    background-color: rgba(0,0,0,.5);
+    border-radius: 5px;
+}
+#php{
+    position: absolute;
+    display: inline-block;
+    width:75%;
+    height:100%;
+
+    margin:0;
+
+    background-color: green;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+#pmaxhp{
+    position:absolute;
+    width:20%;
+    height:100%;
+
+    left:80%;
+
+    margin:0;
+
+    background-color: red;
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 #inventorywindowwrap{
     position:relative;
