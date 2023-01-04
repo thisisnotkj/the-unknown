@@ -2,6 +2,7 @@ var gameObj = {};
 var idleTime = 0;
 var time = new Date(Date.now()).toLocaleTimeString();
 var txtlength = $(".gametxt").text().length;
+var textspeed = 25;
 $(document).ready(function() {
 
    localStorage.clear(); //developer only remove remove console.log
@@ -21,23 +22,18 @@ $(document).ready(function() {
       gameObj.prequiredxp = 100;
       localStorage.setItem("gameSave",JSON.stringify(gameObj));
    }
-
-   var textspeed = 40;
-   typeText(`<br>Did you know that, `,textspeed,".gametxt", "yellow");
-   typeText(`<br>I enjoy typing.`,textspeed,".gametxt","white");
-
-   createUActionBtn(1,null,"START");
+   updatePlayerHP();
+   storyTime();
 
    setInterval(() => {
       idleTime += 1;
-      if(idleTime > 25 && gameObj.allowAmbientText == true){ // add extra checks for individual text pieces
+      if(idleTime > 30 && gameObj.allowAmbientText == true){ // add extra checks for individual text pieces
          idleTime = 0;
          $(".specialtxtspan").remove(); // for now, remove if longer story
-         typeText(`<br>Are you still playing? ..`,30,".gametxt","red",true);
+         typeText(`<br>Are you still playing? ..`,35,".gametxt","red",true);
       }
    }, 1000);
 
-   updatePlayerHP();
 });
 
 function clearUABtn(){
@@ -113,6 +109,8 @@ function typeText(text,speed, target,color,special,) {
                      }
                   }
                }
+            } else{
+               span.append(`${time}: `);
             }
          
             // Loop through the array of characters
@@ -204,3 +202,75 @@ function updatePlayerHP() {
    playermaxhp.style.left = `${pmaxhpleft}%`;
  }
  
+ function pickRandomProperty (obj){
+   let keys = Object.keys(obj);
+   let index = keys.length * Math.random() << 0;
+   return { value: obj[keys[index]], index: keys[index] };
+}
+
+function storyTime(){
+   if (gameObj.plevel == 0){
+      let randomstart = pickRandomProperty(LEVEL_0_STARTING_STORIES)
+      typeText(randomstart.value,textspeed,".gametxt", "white");
+      
+      if(randomstart.index === '1'){
+         createUActionBtn(1,null,"Try to break free from the restraints.");
+         createUActionBtn(1,null,"Look for a way out of the room.");
+         createUActionBtn(1,null,"Wait for the person approaching to enter the room.");
+         createUActionBtn(1,null,"Scream for help.");
+      } else if(randomstart.index === '2'){
+         createUActionBtn(1,null,"Follow the map to the lost city.");
+         createUActionBtn(1,null,"Explore the forest for clues or helpful objects.");
+         createUActionBtn(1,null,"Set up camp and wait for morning.");
+         createUActionBtn(1,null,"Try to find the source of the feeling that you're being watched.");
+         createUActionBtn(1,null,"Head back to civilization.");
+      }else if(randomstart.index === '3'){
+         createUActionBtn(1,null,"Find a way to disable the security systems.");
+         createUActionBtn(1,null,"Distract the guards.");
+         createUActionBtn(1,null,"Find a way to sneak past the guards undetected.");
+         createUActionBtn(1,null,"Abandon the mission and come up with a new plan.");
+      }else if(randomstart.index === '4'){
+         createUActionBtn(1,null,"Examine the crime scene for clues.");
+         createUActionBtn(1,null,"Interview the victim's friends and family.");
+         createUActionBtn(1,null,"Follow leads to other suspects.");
+         createUActionBtn(1,null,"Hack into the victim's computer to search for clues.");
+         createUActionBtn(1,null,"Wait for the killer to make their next move.");
+      }else if(randomstart.index === '5'){
+         createUActionBtn(1,null,"Explore the academy for clues.");
+         createUActionBtn(1,null,"Research ancient magic to find a solution.");
+         createUActionBtn(1,null,"Confront the headmaster about the strange occurrences.");
+         createUActionBtn(1,null,"Gather a group of friends to help you.");
+         createUActionBtn(1,null,"Try to ignore the strange occurrences and focus on your studies.");
+      }else if(randomstart.index === '6'){
+         createUActionBtn(1,null,"Attack the ship head on.");
+         createUActionBtn(1,null,"Try to sneak aboard and steal the treasure covertly.");
+         createUActionBtn(1,null,"Use your pirate charm to try to win the sorceress over.");
+         createUActionBtn(1,null,"Try to negotiate a deal with the sorceress.");
+         createUActionBtn(1,null,"Abort the mission and find a new target.");
+      }else if(randomstart.index === '7'){
+         createUActionBtn(1,null,"Try to repair the ship's systems.");
+         createUActionBtn(1,null,"Look for alternative sources of oxygen.");
+         createUActionBtn(1,null,"Send out a distress signal.");
+         createUActionBtn(1,null,"Abandon ship and use the escape pods.");
+         createUActionBtn(1,null,"Try to use your knowledge of the ship's systems to think of a solution.");
+      }else if(randomstart.index === '8'){
+         createUActionBtn(1,null,"Explore the new world.");
+         createUActionBtn(1,null,"Try to find inhabitants of the new world.");
+         createUActionBtn(1,null,"Try to find a way to defend yourself against the possible dangers of the new world.");
+         createUActionBtn(1,null,"Try to find a way to adapt and make a new life in the new world.");
+      }else if(randomstart.index === '9'){
+         createUActionBtn(1,null,"Gather as much information as you can and try to escape unnoticed.");
+         createUActionBtn(1,null,"Try to outsmart or disable your pursuer.");
+         createUActionBtn(1,null,"Use your combat training to fight your way out.");
+         createUActionBtn(1,null,"Try to blend in with the facility's employees and escape during a shift change.");
+         createUActionBtn(1,null,"Leave the mission and report back to your superiors.");
+      }else if(randomstart.index === '10'){
+         createUActionBtn(1,null,"Try to outwit and outmaneuver your rival.");
+         createUActionBtn(1,null,"Try to find a way to disable the traps and puzzles.");
+         createUActionBtn(1,null,"Use your combat training to fight your way out.");
+         createUActionBtn(1,null,"Work with your rival to reach the artifact faster and then double-cross them.");
+         createUActionBtn(1,null,"Abandon the mission and come up with a new plan.");
+      }
+         
+   }
+}
